@@ -72,11 +72,12 @@ Menubar.File = function ( editor ) {
                 editor.signals.savingFinished.dispatch();
 
 				var text = "Editor state saved.";
-			//	var element = document.createElement("h4");
-			//	var content = new UI.Element( element );
-			//	content.setTextAlign("center");
-			//	content.setTextContent( text );
-			//	editor.signals.showModal.dispatch( content );
+				var element = document.createElement("h4");
+				var content = new UI.Element( element );
+				content.setTextAlign("center");
+				content.setTextContent( text );
+				editor.signals.showModal.dispatch( content );
+
 				console.log( "[" + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + "]", text );
 
             }, 100 );

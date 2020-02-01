@@ -7,6 +7,7 @@
 		<link rel="apple-touch-icon" href="images/icon.png">
 		<link rel="manifest" href="manifest.json">
 		<link rel="shortcut icon" href="../files/favicon.ico" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<!-- WebXR Device API (For Chrome M76+), expires 09/09/2019 -->
 		<meta http-equiv="origin-trial" content="Ai1/G787sugfmWtk1xQExa8N6OqwDsJyNn+OwpA1J4PozR1lixRYIQ4Tmp00vrGWS8FQQ2iDyqjwaewrOfYvPAUAAABTeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkRldmljZU03NiIsImV4cGlyeSI6MTU2ODAyMzQ3OH0=">
 	</head>
@@ -182,7 +183,7 @@
 				return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 			};
 
-			//
+		//
 
 			var editor = new Editor();
 
@@ -204,7 +205,7 @@
 			var menubar = new Menubar( editor );
 			document.body.appendChild( menubar.dom );
 
-			//
+		//
 
 			editor.setTheme( editor.config.getKey( 'theme' ) );
 
@@ -230,7 +231,7 @@
 
 				} );
 
-				//
+			//
 
 				var timeout;
 
@@ -273,7 +274,13 @@
 				signals.scriptChanged.add( saveState );
 				signals.historyChanged.add( saveState );
 
-			} );
+				signals.showModal.add( function ( content ) {
+
+					modal.show( content );
+
+				});
+
+			});
 
 		//
 
@@ -304,11 +311,12 @@
 									editor.signals.savingFinished.dispatch();
 
 									var text = "Editor state saved.";
-								//	var element = document.createElement("h4");
-								//	var content = new UI.Element( element );
-								//	content.setTextAlign("center");
-								//	content.setTextContent( text );
-								//	editor.signals.showModal.dispatch( content );
+									var element = document.createElement("h4");
+									var content = new UI.Element( element );
+									content.setTextAlign("center");
+									content.setTextContent( text );
+									editor.signals.showModal.dispatch( content );
+
 									console.log( "[" + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + "]", text );
 
 								}, 100 );
@@ -376,13 +384,13 @@
 
 			}
 
-			// ServiceWorker
+		// ServiceWorker.
 
-			if ( 'serviceWorker' in navigator ) {
+			if ( "serviceWorker" in navigator ) {
 
 				try {
 
-					navigator.serviceWorker.register( 'sw.js' );
+					navigator.serviceWorker.register( "sw.js" );
 
 				} catch ( error ) {
 
