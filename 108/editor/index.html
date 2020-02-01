@@ -275,7 +275,55 @@
 
 			} );
 
-			//
+		//
+
+			document.addEventListener( "keydown", function ( event ) {
+
+				var timeout;
+
+				switch ( event.keyCode ) {
+
+                    case 83: // Register Ctrl-S for Save.
+
+						if ( event.ctrlKey ) {
+
+							event.preventDefault(); // prevent browser save. important!
+							
+						//  saveState.
+
+							clearTimeout( timeout );
+
+							timeout = setTimeout( function () {
+
+								editor.signals.savingStarted.dispatch();
+
+								timeout = setTimeout( function () {
+
+									editor.storage.set( editor.toJSON() );
+
+									editor.signals.savingFinished.dispatch();
+
+									var text = "Editor state saved.";
+								//	var element = document.createElement("h4");
+								//	var content = new UI.Element( element );
+								//	content.setTextAlign("center");
+								//	content.setTextContent( text );
+								//	editor.signals.showModal.dispatch( content );
+									console.log( "[" + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + "]", text );
+
+								}, 100 );
+
+							}, 1000 );
+
+						}
+
+					break;
+
+				}
+
+			}, false );
+
+		//
 
 			document.addEventListener( 'dragover', function ( event ) {
 
@@ -302,19 +350,19 @@
 
 			onWindowResize();
 
-			//
+		//
 
 			var isLoadingFromHash = false;
 			var hash = window.location.hash;
 
-			if ( hash.substr( 1, 5 ) === 'file=' ) {
+			if ( hash.substr( 1, 5 ) === "file=" ) {
 
 				var file = hash.substr( 6 );
 
-				if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+				if ( confirm( "Any unsaved data will be lost. Are you sure?" ) ) {
 
 					var loader = new THREE.FileLoader();
-					loader.crossOrigin = '';
+					loader.crossOrigin = "";
 					loader.load( file, function ( text ) {
 
 						editor.clear();
@@ -342,14 +390,14 @@
 
 			}
 
-			/*
+		/*
 			window.addEventListener( 'message', function ( event ) {
 
 				editor.clear();
 				editor.fromJSON( event.data );
 
 			}, false );
-			*/
+		*/
 
 		</script>
 	</body>

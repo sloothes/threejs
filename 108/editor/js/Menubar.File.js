@@ -12,7 +12,7 @@ Menubar.File = function ( editor ) {
 
 	}
 
-	//
+//
 
 	var config = editor.config;
 	var strings = editor.strings;
@@ -29,7 +29,7 @@ Menubar.File = function ( editor ) {
 	options.setClass( 'options' );
 	container.add( options );
 
-	// New
+// New.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -43,13 +43,84 @@ Menubar.File = function ( editor ) {
 		}
 
 	} );
+
 	options.add( option );
 
-	//
+//	Save.
+
+	var option = new UI.Row();
+	option.setClass( "option" );
+	option.setTextContent( "Save" );
+	option.onClick( function () {
+
+    //  saveState.
+
+        var timeout;
+
+    //  if ( editor.config.getKey( "autosave" ) === true ) return;
+
+        clearTimeout( timeout );
+
+        timeout = setTimeout( function () {
+
+            editor.signals.savingStarted.dispatch();
+
+            timeout = setTimeout( function () {
+
+                editor.storage.set( editor.toJSON() );
+
+                editor.signals.savingFinished.dispatch();
+
+				var text = "Editor state saved.";
+			//	var element = document.createElement("h4");
+			//	var content = new UI.Element( element );
+			//	content.setTextAlign("center");
+			//	content.setTextContent( text );
+			//	editor.signals.showModal.dispatch( content );
+				console.log( "[" + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + "]", text );
+
+            }, 100 );
+
+        }, 1000 );
+
+	});
+
+	options.add( option );
+
+//	Save as...
+
+	var option = new UI.Row();
+	option.setClass( "option" );
+	option.setTextContent( "Save As" );
+	option.onClick( function () {
+
+		var output = editor.toJSON();
+		output.metadata.type = "App";
+		delete output.history;
+
+		try {
+
+		//	beautify.
+			output = JSON.stringify( output, null, "\t" );
+			output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, "$1" );
+
+		} catch ( e ) {
+
+			output = JSON.stringify( output );
+
+		}
+
+		saveString( output, "app.json" );
+
+	});
+
+	options.add( option );
+
+//
 
 	options.add( new UI.HorizontalRule() );
 
-	// Import
+// Import.
 
 	var form = document.createElement( 'form' );
 	form.style.display = 'none';
@@ -64,6 +135,7 @@ Menubar.File = function ( editor ) {
 		form.reset();
 
 	} );
+
 	form.appendChild( fileInput );
 
 	var option = new UI.Row();
@@ -74,13 +146,14 @@ Menubar.File = function ( editor ) {
 		fileInput.click();
 
 	} );
+
 	options.add( option );
 
-	//
+//
 
 	options.add( new UI.HorizontalRule() );
 
-	// Export Geometry
+// Export Geometry.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -121,9 +194,10 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'geometry.json' );
 
 	} );
+
 	options.add( option );
 
-	// Export Object
+// Export Object.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -155,9 +229,10 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'model.json' );
 
 	} );
+
 	options.add( option );
 
-	// Export Scene
+// Export Scene.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -180,13 +255,14 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'scene.json' );
 
 	} );
+
 	options.add( option );
 
-	//
+//
 
 	options.add( new UI.HorizontalRule() );
 
-	// Export DAE
+// Export DAE.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -202,9 +278,10 @@ Menubar.File = function ( editor ) {
 		} );
 
 	} );
+
 	options.add( option );
 
-	// Export GLB
+// Export GLB.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -222,9 +299,10 @@ Menubar.File = function ( editor ) {
 		}, { binary: true, forceIndices: true, forcePowerOfTwoTextures: true } );
 
 	} );
+
 	options.add( option );
 
-	// Export GLTF
+// Export GLTF.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -241,9 +319,10 @@ Menubar.File = function ( editor ) {
 
 
 	} );
+
 	options.add( option );
 
-	// Export OBJ
+// Export OBJ.
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -264,9 +343,10 @@ Menubar.File = function ( editor ) {
 		saveString( exporter.parse( object ), 'model.obj' );
 
 	} );
+
 	options.add( option );
 
-	// Export STL (ASCII)
+// Export STL (ASCII)
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -278,9 +358,10 @@ Menubar.File = function ( editor ) {
 		saveString( exporter.parse( editor.scene ), 'model.stl' );
 
 	} );
+
 	options.add( option );
 
-	// Export STL (Binary)
+// Export STL (Binary)
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -292,13 +373,14 @@ Menubar.File = function ( editor ) {
 		saveArrayBuffer( exporter.parse( editor.scene, { binary: true } ), 'model-binary.stl' );
 
 	} );
+
 	options.add( option );
 
-	//
+//
 
 	options.add( new UI.HorizontalRule() );
 
-	// Publish
+// Publish
 
 	var option = new UI.Row();
 	option.setClass( 'option' );
@@ -366,11 +448,13 @@ Menubar.File = function ( editor ) {
 			zip.file( 'index.html', content );
 
 		} );
+
 		loader.load( 'js/libs/app.js', function ( content ) {
 
 			zip.file( 'js/app.js', content );
 
 		} );
+
 		loader.load( '../build/three.min.js', function ( content ) {
 
 			zip.file( 'js/three.min.js', content );
@@ -388,9 +472,10 @@ Menubar.File = function ( editor ) {
 		}
 
 	} );
+
 	options.add( option );
 
-	//
+//
 
 	var link = document.createElement( 'a' );
 	function save( blob, filename ) {
@@ -400,6 +485,10 @@ Menubar.File = function ( editor ) {
 		link.dispatchEvent( new MouseEvent( 'click' ) );
 
 		// URL.revokeObjectURL( url ); breaks Firefox...
+
+		setTimeout(function(){
+			URL.revokeObjectURL( link.href );
+		});
 
 	}
 

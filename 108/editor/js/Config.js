@@ -9,7 +9,7 @@ var Config = function () {
 	var storage = {
 		'language': 'en',
 
-		'autosave': true,
+		'autosave': false,
 		'theme': 'css/light.css',
 
 		'project/title': '',
