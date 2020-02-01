@@ -205,6 +205,9 @@
 			var menubar = new Menubar( editor );
 			document.body.appendChild( menubar.dom );
 
+			var modal = new UI.Modal();
+			document.body.appendChild( modal.dom );
+
 		//
 
 			editor.setTheme( editor.config.getKey( 'theme' ) );
