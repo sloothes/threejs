@@ -26,6 +26,7 @@ var Editor = function () {
 
 		editorCleared: new Signal(),
 
+		showModal: new Signal(),
 		savingStarted: new Signal(),
 		savingFinished: new Signal(),
 
