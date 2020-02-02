@@ -197,7 +197,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 	function contextmenu( event ) {
 
-		event.preventDefault();
+	//	event.preventDefault();
 
 	}
 
