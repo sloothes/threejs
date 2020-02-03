@@ -1,4 +1,4 @@
-// r108.08
+// r108.009
 
 const staticAssets = [
 	'./',
