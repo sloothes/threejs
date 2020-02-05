@@ -155,7 +155,8 @@ select {
 	right: 0;
 	top: 32px;
 	bottom: 0;
-	width: 310px;
+	width: fit-content;
+	max-width: 350px;
 	background: #eee;
 	overflow: auto;
 }
