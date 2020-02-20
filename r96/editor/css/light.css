@@ -1,10 +1,9 @@
-/*
 button {
 	color: #555;
 	background-color: #ddd;
 	border: 0px;
 	padding: 5px 8px;
-	text-transform: lowercase;
+	text-transform: uppercase;
 	cursor: pointer;
 	outline: none;
 }
@@ -16,7 +15,6 @@ button {
 	button.selected {
 		background-color: #fff;
 	}
-*/
 
 input, textarea {
 	border: 1px solid transparent;
@@ -50,7 +48,7 @@ select {
 	position: absolute;
 	top: 32px;
 	left: 0;
-	right: 310px;
+	right: 300px;
 	bottom: 0;
 }
 
@@ -63,7 +61,7 @@ select {
 	position: absolute;
 	top: 32px;
 	left: 0;
-	right: 310px;
+	right: 300px;
 	bottom: 0;
 	opacity: 0.9;
 }
@@ -105,7 +103,6 @@ select {
 			color: #888;
 			margin: 0;
 			padding: 8px;
-			line-height: 16px;
 		}
 
 		#menubar .menu .options {
@@ -155,8 +152,7 @@ select {
 	right: 0;
 	top: 32px;
 	bottom: 0;
-	width: fit-content;
-	max-width: 350px;
+	width: 300px;
 	background: #eee;
 	overflow: auto;
 }
@@ -199,7 +195,7 @@ select {
 #toolbar {
 	position: absolute;
 	left: calc(50% - 290px); /* ( ( 100% - 300px ) / 2.0 ) - 140px */
-	width: fit-content;
+	width: 280px;
 	bottom: 16px;
 	height: 32px;
 	background: #eee;
@@ -217,8 +213,6 @@ select {
 
 	#toolbar button {
 		margin-right: 6px;
-		line-height: 14px;
-		height: 24px;
 	}
 
 .Outliner {
@@ -246,51 +240,3 @@ select {
 	.Outliner .option.active {
 		background-color: rgba(0,0,0,0.04);
 	}
-
-/* */
-
-@media all and ( max-width: 600px ) {
-
-	#menubar .menu .options {
-		max-height: calc(100% - 372px);
-	}
-
-	#menubar .menu.right {
-		display: none;
-	}
-
-	#viewport {
-		left: 0;
-		right: 0;
-		top: 32px;
-		height: calc(100% - 352px);
-	}
-
-	#script {
-		left: 0;
-		right: 0;
-		top: 32px;
-		height: calc(100% - 352px);
-	}
-
-	#player {
-		left: 0;
-		right: 0;
-		top: 32px;
-		height: calc(100% - 352px);
-	}
-
-	#sidebar {
-		left: 0;
-		width: 100%;
-		top: calc(100% - 320px);
-		bottom: 0;
-	}
-
-	#toolbar {
-		left: calc(50% - 140px);
-		width: 280px;
-		top: 68px;
-	}
-
-}
