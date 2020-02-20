@@ -1,4 +1,8 @@
 r96/test/*
 r96/utils/*
-r96/examples/*
+r96/examples/*.html
+r96/examples/obj/*
+r96/examples/sounds//*
+r96/examples/models/*
+r96/examples/textures/*
 
